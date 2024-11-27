@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import fetchCoinData from "../utilis/fetchCoinData";
 import { useQuery } from "react-query";
+import { CoinContext } from "../utilis/CoinCotext";
 
 const CoinTable = () => {
+  const { currency } = useContext(CoinContext);
   const [page, setPage] = useState(1);
 
   const { data, isLoading, isError, error } = useQuery(
-    ["coins", page], // Unique query key
-    () => fetchCoinData(page, "usd"), // Query function
+    ["coins", page, currency], // Unique query key
+    () => fetchCoinData(page, currency), // Query function
     {
       // retry: 2, // Retry twice if the request fails,commented just to not get over the limit of free api
       // retryDelay: 1000, // Wait 1 second between retries
@@ -21,6 +23,7 @@ const CoinTable = () => {
 
   return (
     <div className="my-5 flex flex-col items-center justify-center mx-auto w-[80vw] gap-5">
+      <div>{currency.toUpperCase()}</div>
       <div className="w-full bg-yellow-400 text-black flex py-4 px-2 font-semibold items-center justify-center">
         <div className="basis-[35%]">Coin</div>
         <div className="basis-[25%]">Price</div>
