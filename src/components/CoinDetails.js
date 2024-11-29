@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import parse from "html-react-parser";
 import { useContext } from "react";
 import { CoinContext } from "../utilis/CoinCotext";
+import { Facebook } from "react-content-loader";
 const CoinDetails = () => {
   const { currency } = useContext(CoinContext);
   const { id } = useParams();
@@ -18,7 +19,7 @@ const CoinDetails = () => {
   });
 
   if (isLoading) {
-    return <div>Loading....</div>;
+    return <Facebook />;
   }
   if (isError) {
     return <div>Error:{error.message}</div>;
