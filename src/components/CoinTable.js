@@ -2,10 +2,12 @@ import { useContext, useState } from "react";
 import fetchCoinData from "../utilis/fetchCoinData";
 import { useQuery } from "react-query";
 import { CoinContext } from "../utilis/CoinCotext";
+import { useNavigate } from "react-router-dom";
 
 const CoinTable = () => {
   const { currency } = useContext(CoinContext);
   const [page, setPage] = useState(1);
+  const navigate = useNavigate();
 
   const { data, isLoading, isError, error } = useQuery(
     ["coins", page, currency], // Unique query key
@@ -17,6 +19,10 @@ const CoinTable = () => {
       staleTime: 1000 * 60 * 2, // this tells how long we consider data fresh, till that we dont call any new api
     }
   );
+
+  function handleCoinClick(id) {
+    navigate(`/coins/${id}`);
+  }
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error :{error.message}</div>;
@@ -35,9 +41,10 @@ const CoinTable = () => {
           data.map((coin) => {
             return (
               <div
+                onClick={() => handleCoinClick(coin.id)}
                 key={coin.id}
                 className="w-full bg-transparent text-white flex  py-4 px-2 font-semibold 
-              items-center justify-between"
+              items-center justify-between cursor-pointer"
               >
                 <div className="flex items-center justify-start gap-3 basis-[35%]">
                   <div className="w-[5rem] h-[5rem]">
