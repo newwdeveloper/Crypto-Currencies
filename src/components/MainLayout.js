@@ -1,13 +1,16 @@
 import { Outlet } from "react-router-dom";
+import { CustomErrorBoundary } from "./ErrorBoundryUI";
 
 import Navbar from "./Navbar";
 
 const MainLayout = () => {
   return (
-    <>
-      <Navbar />
-      <Outlet />
-    </>
+    <CustomErrorBoundary>
+      <>
+        <Navbar />
+        <Outlet />
+      </>
+    </CustomErrorBoundary>
   );
 };
 
