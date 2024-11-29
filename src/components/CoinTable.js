@@ -3,6 +3,7 @@ import fetchCoinData from "../utilis/fetchCoinData";
 import { useQuery } from "react-query";
 import { CoinContext } from "../utilis/CoinCotext";
 import { useNavigate } from "react-router-dom";
+import { Facebook } from "react-content-loader";
 
 const CoinTable = () => {
   const { currency } = useContext(CoinContext);
@@ -24,7 +25,7 @@ const CoinTable = () => {
     navigate(`/coins/${id}`);
   }
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Facebook />;
   if (isError) return <div>Error :{error.message}</div>;
 
   return (
@@ -37,6 +38,7 @@ const CoinTable = () => {
         <div className="basis-[20%]">Market cap</div>
       </div>
       <div className="flex flex-col w-[80vw] mx-auto">
+        {isLoading && <Facebook />}
         {data &&
           data.map((coin) => {
             return (

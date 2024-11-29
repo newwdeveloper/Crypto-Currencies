@@ -1,9 +1,12 @@
 import "./App.css";
-import CoinDetails from "./components/CoinDetails";
-import Home from "./components/Home";
 import MainLayout from "./components/MainLayout";
 import { CoinProvider } from "./utilis/CoinCotext";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Suspense, lazy } from "react";
+import { Facebook } from "react-content-loader";
+
+const Home = lazy(() => import("../src/components/Home"));
+const CoinDetails = lazy(() => import("./components/CoinDetails"));
 
 const appRouter = createBrowserRouter([
   {
@@ -12,11 +15,19 @@ const appRouter = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: (
+          <Suspense fallback={<Facebook />}>
+            <Home />
+          </Suspense>
+        ),
       },
       {
         path: "/coins/:id",
-        element: <CoinDetails />,
+        element: (
+          <Suspense fallback={<Facebook />}>
+            <CoinDetails />
+          </Suspense>
+        ),
       },
     ],
   },
