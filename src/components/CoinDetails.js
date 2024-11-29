@@ -40,7 +40,8 @@ const CoinDetails = () => {
           <div className="flex items-center mb-4 md:mb-0">
             <h2 className="text-xl text-yellow-400 font-bold">Current Price</h2>
             <span className="ml-3 text-xl">
-              {coin?.market_data.current_price[currency]}
+              {coin?.market_data.current_price[currency]} in{" "}
+              {currency.toUpperCase()}
             </span>
           </div>
         </div>

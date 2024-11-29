@@ -1,8 +1,14 @@
 import { useContext } from "react";
 import { CoinContext } from "../utilis/CoinCotext";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { setCurrency } = useContext(CoinContext);
+  const navigate = useNavigate();
+
+  const handleHomeBtn = () => {
+    navigate("/");
+  };
 
   const handleCurrencyChange = (newCurrency) => {
     setCurrency(newCurrency.toLowerCase());
@@ -40,7 +46,7 @@ const Navbar = () => {
           </ul>
         </div>
       </div>
-      <div className="navbar-center">
+      <div onClick={handleHomeBtn} className="navbar-center">
         <a className="btn btn-ghost text-xl">Crypto Tracker</a>
       </div>
       <div className="navbar-end">
