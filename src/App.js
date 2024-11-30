@@ -4,6 +4,8 @@ import { CoinProvider } from "./utilis/CoinCotext";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import { Facebook } from "react-content-loader";
+import { Provider } from "react-redux";
+import dataStore from "./utilis/appStore";
 
 const Home = lazy(() => import("../src/components/Home"));
 const CoinDetails = lazy(() => import("./components/CoinDetails"));
@@ -35,11 +37,13 @@ const appRouter = createBrowserRouter([
 
 function App() {
   return (
-    <CoinProvider>
-      <div data-theme="forest">
-        <RouterProvider router={appRouter} />
-      </div>
-    </CoinProvider>
+    <Provider store={dataStore}>
+      <CoinProvider>
+        <div data-theme="forest">
+          <RouterProvider router={appRouter} />
+        </div>
+      </CoinProvider>
+    </Provider>
   );
 }
 
